@@ -1,0 +1,20 @@
+name: number_field
+description: "A number field with a custom keyboard"
+version: 1.0.0
+homepage:
+
+environment:
+  sdk: ^3.5.3
+  flutter: ">=3.24.3"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  intl: any
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: any
+
+flutter:

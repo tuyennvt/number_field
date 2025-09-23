@@ -18,7 +18,9 @@ Add this to your package's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  number_field: ^1.0.0
+  number_field:
+    git:
+      url: https://github.com/tuyennvt/number_field.git
 ```
 
 Then run:
