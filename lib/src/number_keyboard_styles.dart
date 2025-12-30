@@ -79,7 +79,7 @@ class NumberKeyboardSubmitButtonStyles {
   const NumberKeyboardSubmitButtonStyles({
     this.height = _defaultSubmitButtonHeight,
     this.radius = _defaultRadius,
-    this.label = 'Done',
+    this.label = '',
     this.textStyle = _keyboardSubmitTextStyle,
     this.backgroundColor = _defaultSubmitButtonBackgroundColor,
   });

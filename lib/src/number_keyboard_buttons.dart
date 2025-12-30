@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:number_field/src/number_keyboard_styles.dart';
 
@@ -299,7 +300,7 @@ class _BackspaceButton extends StatelessWidget {
         padding: WidgetStateProperty.all(EdgeInsets.zero),
         fixedSize: WidgetStateProperty.all(Size(width, styles.height)),
       ),
-      child: Icon(Icons.backspace_outlined),
+      child: Icon(CupertinoIcons.delete_left),
     );
   }
 }
@@ -335,7 +336,7 @@ class _SubmitButton extends StatelessWidget {
         textStyle: WidgetStateProperty.all(styles.textStyle),
         fixedSize: WidgetStateProperty.all(Size(width, styles.height)),
       ),
-      child: Text(label),
+      child: label.isEmpty ? Icon(CupertinoIcons.check_mark) : Text(label),
     );
   }
 }

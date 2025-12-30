@@ -87,7 +87,8 @@ class NumberEditingController extends TextEditingController {
       return;
     }
     final newText = '$currentText$_threeZero';
-    super.text = _format(_parseNumber(newText));
+    final newNumber = _parseNumber(newText);
+    super.text = _format(newNumber);
   }
 
   void backspace() {
@@ -153,7 +154,12 @@ class NumberEditingController extends TextEditingController {
     }
     final integerPart = parts[0];
     final decimalPart = parts[1];
-    return '${integerFormatter.format(int.tryParse(integerPart) ?? 0)}$_decimalSeparator$decimalPart';
+    final integerValue = int.tryParse(integerPart);
+    if (integerValue == null) {
+      return '';
+    }
+    final integerFormatted = integerFormatter.format(integerValue);
+    return '$integerFormatted$_decimalSeparator$decimalPart';
   }
 
   num? _parseNumber(String text) {
