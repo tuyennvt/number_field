@@ -54,8 +54,9 @@ class NumberKeyboard extends StatelessWidget {
                       onSubmitPressed: onSubmitPressed,
                       onBackspacePressed: controller.backspace,
                       onBackspaceLongPress: controller.clearAll,
+                      decimalSeparator: controller.decimalSeparator,
                       onDecimalSeparatorPressed: controller.decimalDigits > 0
-                          ? () => controller.addDecimalSeparator()
+                          ? controller.addDecimalSeparator
                           : null,
                       onThreeZeroPressed: controller.addThreeZero,
                       onDigitPressed: controller.addDigit,

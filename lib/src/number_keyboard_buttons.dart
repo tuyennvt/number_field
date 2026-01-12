@@ -8,6 +8,7 @@ class NumberKeyboardButtons extends StatelessWidget {
     required this.onSubmitPressed,
     required this.onBackspacePressed,
     required this.onBackspaceLongPress,
+    required this.decimalSeparator,
     required this.onDecimalSeparatorPressed,
     required this.onThreeZeroPressed,
     required this.onDigitPressed,
@@ -17,6 +18,7 @@ class NumberKeyboardButtons extends StatelessWidget {
   final VoidCallback onSubmitPressed;
   final VoidCallback onBackspacePressed;
   final VoidCallback onBackspaceLongPress;
+  final String decimalSeparator;
   final VoidCallback? onDecimalSeparatorPressed;
   final VoidCallback onThreeZeroPressed;
   final ValueChanged<int> onDigitPressed;
@@ -38,21 +40,21 @@ class NumberKeyboardButtons extends StatelessWidget {
                 children: [
                   _Button(
                     value: 1,
-                    onPressed: () => onDigitPressed(1),
+                    onPressed: onDigitPressed,
                     styles: styles.buttonStyles,
                     width: buttonWidth,
                   ),
                   SizedBox(width: styles.gutter),
                   _Button(
                     value: 2,
-                    onPressed: () => onDigitPressed(2),
+                    onPressed: onDigitPressed,
                     styles: styles.buttonStyles,
                     width: buttonWidth,
                   ),
                   SizedBox(width: styles.gutter),
                   _Button(
                     value: 3,
-                    onPressed: () => onDigitPressed(3),
+                    onPressed: onDigitPressed,
                     styles: styles.buttonStyles,
                     width: buttonWidth,
                   ),
@@ -63,21 +65,21 @@ class NumberKeyboardButtons extends StatelessWidget {
                 children: [
                   _Button(
                     value: 4,
-                    onPressed: () => onDigitPressed(4),
+                    onPressed: onDigitPressed,
                     styles: styles.buttonStyles,
                     width: buttonWidth,
                   ),
                   SizedBox(width: styles.gutter),
                   _Button(
                     value: 5,
-                    onPressed: () => onDigitPressed(5),
+                    onPressed: onDigitPressed,
                     styles: styles.buttonStyles,
                     width: buttonWidth,
                   ),
                   SizedBox(width: styles.gutter),
                   _Button(
                     value: 6,
-                    onPressed: () => onDigitPressed(6),
+                    onPressed: onDigitPressed,
                     styles: styles.buttonStyles,
                     width: buttonWidth,
                   ),
@@ -88,21 +90,21 @@ class NumberKeyboardButtons extends StatelessWidget {
                 children: [
                   _Button(
                     value: 7,
-                    onPressed: () => onDigitPressed(7),
+                    onPressed: onDigitPressed,
                     styles: styles.buttonStyles,
                     width: buttonWidth,
                   ),
                   SizedBox(width: styles.gutter),
                   _Button(
                     value: 8,
-                    onPressed: () => onDigitPressed(8),
+                    onPressed: onDigitPressed,
                     styles: styles.buttonStyles,
                     width: buttonWidth,
                   ),
                   SizedBox(width: styles.gutter),
                   _Button(
                     value: 9,
-                    onPressed: () => onDigitPressed(9),
+                    onPressed: onDigitPressed,
                     styles: styles.buttonStyles,
                     width: buttonWidth,
                   ),
@@ -116,6 +118,7 @@ class NumberKeyboardButtons extends StatelessWidget {
                       onPressed: onDecimalSeparatorPressed!,
                       styles: styles.buttonStyles,
                       width: buttonWidth,
+                      decimalSeparator: decimalSeparator,
                     ),
                   ] else ...[
                     SizedBox(
@@ -126,7 +129,7 @@ class NumberKeyboardButtons extends StatelessWidget {
                   SizedBox(width: styles.gutter),
                   _Button(
                     value: 0,
-                    onPressed: () => onDigitPressed(0),
+                    onPressed: onDigitPressed,
                     styles: styles.buttonStyles,
                     width: buttonWidth,
                   ),
@@ -174,13 +177,13 @@ class _Button extends StatelessWidget {
   });
 
   final int value;
-  final VoidCallback onPressed;
+  final ValueChanged<int> onPressed;
   final NumberKeyboardButtonStyles styles;
   final double width;
   @override
   Widget build(BuildContext context) {
     return FilledButton(
-      onPressed: onPressed,
+      onPressed: () => onPressed(value),
       style: ButtonStyle(
         backgroundColor: WidgetStateProperty.all(styles.backgroundColor),
         foregroundColor: WidgetStateProperty.all(styles.textStyle.color),
@@ -240,11 +243,13 @@ class _DecimalSeparatorButton extends StatelessWidget {
     required this.onPressed,
     required this.styles,
     required this.width,
+    required this.decimalSeparator,
   });
 
   final VoidCallback onPressed;
   final NumberKeyboardButtonStyles styles;
   final double width;
+  final String decimalSeparator;
   @override
   Widget build(BuildContext context) {
     return FilledButton(
@@ -264,7 +269,7 @@ class _DecimalSeparatorButton extends StatelessWidget {
         textStyle: WidgetStateProperty.all(styles.textStyle),
         fixedSize: WidgetStateProperty.all(Size(width, styles.height)),
       ),
-      child: Text('.'),
+      child: Text(decimalSeparator),
     );
   }
 }
@@ -323,7 +328,7 @@ class _SubmitButton extends StatelessWidget {
       onPressed: onPressed,
       style: ButtonStyle(
         backgroundColor: WidgetStateProperty.all(styles.backgroundColor),
-        foregroundColor: WidgetStateProperty.all(styles.textStyle.color),
+        foregroundColor: WidgetStateProperty.all(styles.labelStyle.color),
         overlayColor: WidgetStateProperty.all(const Color(0xFF004392)),
         shape: WidgetStateProperty.all(
           RoundedRectangleBorder(
@@ -333,7 +338,7 @@ class _SubmitButton extends StatelessWidget {
         shadowColor: WidgetStateProperty.all(Colors.black.withOpacity(0.3)),
         elevation: WidgetStateProperty.all(2),
         padding: WidgetStateProperty.all(EdgeInsets.zero),
-        textStyle: WidgetStateProperty.all(styles.textStyle),
+        textStyle: WidgetStateProperty.all(styles.labelStyle),
         fixedSize: WidgetStateProperty.all(Size(width, styles.height)),
       ),
       child: label.isEmpty ? Icon(CupertinoIcons.check_mark) : Text(label),

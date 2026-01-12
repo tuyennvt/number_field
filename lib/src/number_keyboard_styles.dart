@@ -80,14 +80,14 @@ class NumberKeyboardSubmitButtonStyles {
     this.height = _defaultSubmitButtonHeight,
     this.radius = _defaultRadius,
     this.label = '',
-    this.textStyle = _keyboardSubmitTextStyle,
+    this.labelStyle = _keyboardSubmitTextStyle,
     this.backgroundColor = _defaultSubmitButtonBackgroundColor,
   });
 
   final double height;
   final double radius;
   final String label;
-  final TextStyle textStyle;
+  final TextStyle labelStyle;
   final Color backgroundColor;
 }
 

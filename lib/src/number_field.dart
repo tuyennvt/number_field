@@ -56,6 +56,7 @@ class _NumberFieldState extends State<NumberField>
   OverlayEntry? _overlayEntry;
   late var _focusNode = widget.focusNode ?? FocusNode();
   late var _controller = widget.controller ?? NumberEditingController();
+  num? _lastNotifiedNumber;
 
   bool get _isKeyboardShown =>
       _overlayEntry != null &&
@@ -64,6 +65,7 @@ class _NumberFieldState extends State<NumberField>
   @override
   void initState() {
     super.initState();
+    _lastNotifiedNumber = _controller.number;
     _keyboardSlideController.addStatusListener((status) {
       if (status == AnimationStatus.dismissed) {
         _overlayEntry?.remove();
@@ -72,8 +74,8 @@ class _NumberFieldState extends State<NumberField>
         _showFieldOnScreen();
       }
     });
-    _controller.addListener(_controllerListener);
     _focusNode.addListener(_focusNodeListener);
+    _controller.addListener(_controllerListener);
   }
 
   @override
@@ -159,7 +161,11 @@ class _NumberFieldState extends State<NumberField>
   }
 
   void _controllerListener() {
-    widget.onChanged?.call(_controller.number);
+    final currentNumber = _controller.number;
+    if (currentNumber != _lastNotifiedNumber) {
+      _lastNotifiedNumber = currentNumber;
+      widget.onChanged?.call(currentNumber);
+    }
   }
 
   void _focusNodeListener() {
@@ -171,7 +177,7 @@ class _NumberFieldState extends State<NumberField>
       return;
     }
     _onFocusChanged(context, open: false);
-    _controller.number = _validate();
+    _controller.setNumberAndFormat(_validate());
     widget.onFieldSubmitted?.call(_controller.number);
   }
 

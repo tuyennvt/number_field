@@ -1,7 +1,7 @@
 name: number_field
-description: "A number field with a custom keyboard"
-version: 1.0.0
-homepage:
+description: "A Flutter package that provides a custom number input field with a dedicated number keyboard, smart formatting, locale support, and seamless form integration."
+version: 1.1.0
+homepage: https://github.com/tuyennvt/number_field
 
 environment:
   sdk: ^3.5.3
